@@ -26,6 +26,12 @@
             <version>7.0</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+        	<groupId>sunspring.tests</groupId>
+        	<artifactId>Test03-ejb</artifactId>
+        	<scope>provided</scope>
+        	<version>${project.version}</version>
+        </dependency>
     </dependencies>
 
     <build>

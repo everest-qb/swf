@@ -3,5 +3,10 @@
 	<persistence-unit name="SWFunit">
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 		<jta-data-source>HdOracleDevDS</jta-data-source>
+		<class>sunspring.tests.jpa.ShrEmployeesAll</class>
+		<class>sunspring.tests.jpa.ShrEmpTxnSummariesAll</class>
+		<class>sunspring.tests.jpa.FndLookupValue</class>
+		<class>sunspring.tests.jpa.FunLookupValueKey</class>
+		
 	</persistence-unit>
 </persistence>

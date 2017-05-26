@@ -4,37 +4,54 @@
  */
 package sunspring.tests;
 
-import javax.annotation.Resource;
 import javax.ejb.Stateless;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.ejb.LocalBean;
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.sql.DataSource;
+
+import sunspring.tests.annotation.LogTrace;
+import sunspring.tests.jpa.FndLookupValue;
+import sunspring.tests.jpa.FunLookupValueKey;
 
 /**
  *
  * @author QB
  */
+@LogTrace
 @Stateless
 @LocalBean
-@TransactionAttribute(TransactionAttributeType.SUPPORTS)
 public class NewSessionBean {
-
- @PersistenceContext(unitName="SWFunit")
+	
+	public enum FND_TYPE{POSITION_TYPE,POSITION,JOB_LEVEL,JOB_GRADE};
+	
+	@PersistenceContext(unitName = "SWFunit")
 	private EntityManager em;
 
-    public void businessMethod() {
+	@SuppressWarnings("unchecked")
+	public List<String> test() {
+		List<String> returnValue=new ArrayList<>();
+		
+		List<Object[]> list=(List<Object[]>)em.createNativeQuery("SELECT sea.employee_id,sea.employee_number "
+				+ "FROM  shr.shr_employees_all sea,shr.shr_emp_txn_summaries_all setsa "
+				+ "WHERE sea.employee_id = setsa.employee_id").getResultList();
+		for(Object[] o:list){
+			returnValue.add((String)o[1]);
+		}
+		return returnValue;
+	}
 
-    }
-
-    
-    public String test() {
-      
-        return "ABC";
-    }
-
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
+	public List<FndLookupValue> findALlByType(FND_TYPE type){
+		List<FndLookupValue> returnValue=null;
+		returnValue=em.createQuery("SELECT v FROM FndLookupValue v WHERE v.id.lookupType=:ID", FndLookupValue.class)
+				.setParameter("ID", "SHR:"+type.name())
+				.getResultList();
+		
+		
+		return returnValue;
+	}
+	
 }
