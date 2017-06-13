@@ -2,6 +2,11 @@ package sunspring.tests.jpa;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -13,7 +18,10 @@ import java.util.Date;
 @Entity
 @Table(name="SHR_EMPLOYEES_ALL",schema="SHR")
 @NamedQuery(name="ShrEmployeesAll.findAll", query="SELECT s FROM ShrEmployeesAll s")
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class ShrEmployeesAll implements Serializable {
+	@XmlTransient
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -469,6 +477,10 @@ public class ShrEmployeesAll implements Serializable {
 
 	private BigDecimal weight;
 
+	@OneToOne
+	@JoinTable(joinColumns = @JoinColumn(name = "EMPLOYEE_ID", referencedColumnName = "EMPLOYEE_ID"), schema = "SHR", name = "SHR_EMP_TXN_SUMMARIES_ALL", inverseJoinColumns = @JoinColumn(name = "EMPLOYEE_ID", referencedColumnName = "EMPLOYEE_ID"))
+	private ShrEmpTxnSummariesAll summary;
+	
 	public ShrEmployeesAll() {
 	}
 
@@ -1670,6 +1682,14 @@ public class ShrEmployeesAll implements Serializable {
 
 	public void setWeight(BigDecimal weight) {
 		this.weight = weight;
+	}
+
+	public ShrEmpTxnSummariesAll getSummary() {
+		return summary;
+	}
+
+	public void setSummary(ShrEmpTxnSummariesAll summary) {
+		this.summary = summary;
 	}
 
 }

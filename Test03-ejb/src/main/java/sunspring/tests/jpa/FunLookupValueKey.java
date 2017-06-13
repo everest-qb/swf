@@ -5,11 +5,18 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 @Embeddable
 @Table(name="FND_LOOKUP_VALUES",schema="APPLSYS")
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public final class FunLookupValueKey implements Serializable {
 	
+	@XmlTransient
 	private static final long serialVersionUID = 1L;
 
 	@Column(name="LOOKUP_TYPE")

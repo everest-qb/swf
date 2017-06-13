@@ -29,10 +29,14 @@ public class LogTracer implements Serializable {
 			log.trace("{}",methpdName);
 			if(objs!=null)
 			for(int i=0;i<objs.length;i++){
-				log.trace("p{}:{}",i,objs[i]);
+				log.trace("PARS: {}/{}",i,objs[i]);
 			}
 		}		
-		return ctx.proceed();
+		Object r=ctx.proceed();
+		if(log.isTraceEnabled()){
+			log.trace("RE:{}",r);
+		}
+		return r;
 	}
 	
 	public LogTracer() {

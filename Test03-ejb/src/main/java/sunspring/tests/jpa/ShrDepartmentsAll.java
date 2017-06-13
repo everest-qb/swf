@@ -2,31 +2,25 @@ package sunspring.tests.jpa;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlAccessType;
-
 import java.math.BigDecimal;
 import java.util.Date;
 
 
 /**
- * The persistent class for the FND_LOOKUP_VALUES database table.
+ * The persistent class for the SHR_DEPARTMENTS_ALL database table.
  * 
  */
 @Entity
-@Table(name="FND_LOOKUP_VALUES",schema="APPLSYS")
-@NamedQuery(name="FndLookupValue.findAll", query="SELECT f FROM FndLookupValue f")
-@XmlRootElement
-@XmlAccessorType(XmlAccessType.FIELD)
-public class FndLookupValue implements Serializable {
-	
-	@XmlTransient
+@Table(name="SHR_DEPARTMENTS_ALL",schema="SHR")
+@NamedQuery(name="ShrDepartmentsAll.findAll", query="SELECT s FROM ShrDepartmentsAll s")
+public class ShrDepartmentsAll implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
-	@EmbeddedId
-	private FunLookupValueKey id;
+
+	@Id
+	@SequenceGenerator(name="SHR_DEPARTMENTS_ALL_GENERATOR", sequenceName="SHR_DEPARTMENTS_ALL_S1")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SHR_DEPARTMENTS_ALL_GENERATOR")
+	@Column(name="DEPARTMENT_ID")
+	private BigDecimal departmentId;
 	
 	@Column(name="ATTRIBUTE_CATEGORY")
 	private String attributeCategory;
@@ -61,6 +55,9 @@ public class FndLookupValue implements Serializable {
 
 	private String attribute9;
 
+	@Column(name="COMPANY_ID")
+	private BigDecimal companyId;
+
 	@Column(name="CREATED_BY")
 	private BigDecimal createdBy;
 
@@ -68,14 +65,33 @@ public class FndLookupValue implements Serializable {
 	@Column(name="CREATION_DATE")
 	private Date creationDate;
 
+	@Column(name="DEPARTMENT_CODE")
+	private String departmentCode;
+
+	@Column(name="DEPARTMENT_NAME")
+	private String departmentName;
+
+	@Column(name="DEPARTMENT_SHORT_NAME")
+	private String departmentShortName;
+
+	@Column(name="DEPT_LEVEL_CODE")
+	private String deptLevelCode;
+
 	private String description;
 
-	@Column(name="ENABLED_FLAG")
-	private String enabledFlag;
+	@Temporal(TemporalType.DATE)
+	@Column(name="DISABLE_DATE")
+	private Date disableDate;
+
+	@Column(name="EMP_ARRANGE_QTY")
+	private BigDecimal empArrangeQty;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="END_DATE_ACTIVE")
-	private Date endDateActive;
+	@Column(name="ENABLE_DATE")
+	private Date enableDate;
+
+	@Column(name="EXPENSE_CATEGORY_CODE")
+	private String expenseCategoryCode;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name="LAST_UPDATE_DATE")
@@ -87,30 +103,10 @@ public class FndLookupValue implements Serializable {
 	@Column(name="LAST_UPDATED_BY")
 	private BigDecimal lastUpdatedBy;
 
-	@Column(name="LEAF_NODE")
-	private String leafNode;
+	@Column(name="SALARY_TRANSFORM")
+	private BigDecimal salaryTransform;
 
-	private String meaning;
-
-	@Column(name="SECURITY_GROUP_ID")
-	private BigDecimal securityGroupId;
-
-	@Column(name="SOURCE_LANG")
-	private String sourceLang;
-
-	@Temporal(TemporalType.DATE)
-	@Column(name="START_DATE_ACTIVE")
-	private Date startDateActive;
-
-	private String tag;
-
-	@Column(name="TERRITORY_CODE")
-	private String territoryCode;
-
-	@Column(name="VIEW_APPLICATION_ID")
-	private BigDecimal viewApplicationId;
-
-	public FndLookupValue() {
+	public ShrDepartmentsAll() {
 	}
 
 	public String getAttributeCategory() {
@@ -241,6 +237,14 @@ public class FndLookupValue implements Serializable {
 		this.attribute9 = attribute9;
 	}
 
+	public BigDecimal getCompanyId() {
+		return this.companyId;
+	}
+
+	public void setCompanyId(BigDecimal companyId) {
+		this.companyId = companyId;
+	}
+
 	public BigDecimal getCreatedBy() {
 		return this.createdBy;
 	}
@@ -257,6 +261,46 @@ public class FndLookupValue implements Serializable {
 		this.creationDate = creationDate;
 	}
 
+	public String getDepartmentCode() {
+		return this.departmentCode;
+	}
+
+	public void setDepartmentCode(String departmentCode) {
+		this.departmentCode = departmentCode;
+	}
+
+	public BigDecimal getDepartmentId() {
+		return this.departmentId;
+	}
+
+	public void setDepartmentId(BigDecimal departmentId) {
+		this.departmentId = departmentId;
+	}
+
+	public String getDepartmentName() {
+		return this.departmentName;
+	}
+
+	public void setDepartmentName(String departmentName) {
+		this.departmentName = departmentName;
+	}
+
+	public String getDepartmentShortName() {
+		return this.departmentShortName;
+	}
+
+	public void setDepartmentShortName(String departmentShortName) {
+		this.departmentShortName = departmentShortName;
+	}
+
+	public String getDeptLevelCode() {
+		return this.deptLevelCode;
+	}
+
+	public void setDeptLevelCode(String deptLevelCode) {
+		this.deptLevelCode = deptLevelCode;
+	}
+
 	public String getDescription() {
 		return this.description;
 	}
@@ -265,20 +309,36 @@ public class FndLookupValue implements Serializable {
 		this.description = description;
 	}
 
-	public String getEnabledFlag() {
-		return this.enabledFlag;
+	public Date getDisableDate() {
+		return this.disableDate;
 	}
 
-	public void setEnabledFlag(String enabledFlag) {
-		this.enabledFlag = enabledFlag;
+	public void setDisableDate(Date disableDate) {
+		this.disableDate = disableDate;
 	}
 
-	public Date getEndDateActive() {
-		return this.endDateActive;
+	public BigDecimal getEmpArrangeQty() {
+		return this.empArrangeQty;
 	}
 
-	public void setEndDateActive(Date endDateActive) {
-		this.endDateActive = endDateActive;
+	public void setEmpArrangeQty(BigDecimal empArrangeQty) {
+		this.empArrangeQty = empArrangeQty;
+	}
+
+	public Date getEnableDate() {
+		return this.enableDate;
+	}
+
+	public void setEnableDate(Date enableDate) {
+		this.enableDate = enableDate;
+	}
+
+	public String getExpenseCategoryCode() {
+		return this.expenseCategoryCode;
+	}
+
+	public void setExpenseCategoryCode(String expenseCategoryCode) {
+		this.expenseCategoryCode = expenseCategoryCode;
 	}
 
 	public Date getLastUpdateDate() {
@@ -305,76 +365,12 @@ public class FndLookupValue implements Serializable {
 		this.lastUpdatedBy = lastUpdatedBy;
 	}
 
-	public String getLeafNode() {
-		return this.leafNode;
+	public BigDecimal getSalaryTransform() {
+		return this.salaryTransform;
 	}
 
-	public void setLeafNode(String leafNode) {
-		this.leafNode = leafNode;
-	}
-
-	public String getMeaning() {
-		return this.meaning;
-	}
-
-	public void setMeaning(String meaning) {
-		this.meaning = meaning;
-	}
-
-	public BigDecimal getSecurityGroupId() {
-		return this.securityGroupId;
-	}
-
-	public void setSecurityGroupId(BigDecimal securityGroupId) {
-		this.securityGroupId = securityGroupId;
-	}
-
-	public String getSourceLang() {
-		return this.sourceLang;
-	}
-
-	public void setSourceLang(String sourceLang) {
-		this.sourceLang = sourceLang;
-	}
-
-	public Date getStartDateActive() {
-		return this.startDateActive;
-	}
-
-	public void setStartDateActive(Date startDateActive) {
-		this.startDateActive = startDateActive;
-	}
-
-	public String getTag() {
-		return this.tag;
-	}
-
-	public void setTag(String tag) {
-		this.tag = tag;
-	}
-
-	public String getTerritoryCode() {
-		return this.territoryCode;
-	}
-
-	public void setTerritoryCode(String territoryCode) {
-		this.territoryCode = territoryCode;
-	}
-
-	public BigDecimal getViewApplicationId() {
-		return this.viewApplicationId;
-	}
-
-	public void setViewApplicationId(BigDecimal viewApplicationId) {
-		this.viewApplicationId = viewApplicationId;
-	}
-
-	public FunLookupValueKey getId() {
-		return id;
-	}
-
-	public void setId(FunLookupValueKey id) {
-		this.id = id;
+	public void setSalaryTransform(BigDecimal salaryTransform) {
+		this.salaryTransform = salaryTransform;
 	}
 
 }

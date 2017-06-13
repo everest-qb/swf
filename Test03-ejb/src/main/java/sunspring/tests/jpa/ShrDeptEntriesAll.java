@@ -2,31 +2,25 @@ package sunspring.tests.jpa;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlAccessType;
-
 import java.math.BigDecimal;
 import java.util.Date;
 
 
 /**
- * The persistent class for the FND_LOOKUP_VALUES database table.
+ * The persistent class for the SHR_DEPT_ENTRIES_ALL database table.
  * 
  */
 @Entity
-@Table(name="FND_LOOKUP_VALUES",schema="APPLSYS")
-@NamedQuery(name="FndLookupValue.findAll", query="SELECT f FROM FndLookupValue f")
-@XmlRootElement
-@XmlAccessorType(XmlAccessType.FIELD)
-public class FndLookupValue implements Serializable {
-	
-	@XmlTransient
+@Table(name="SHR_DEPT_ENTRIES_ALL",schema="SHR")
+@NamedQuery(name="ShrDeptEntriesAll.findAll", query="SELECT s FROM ShrDeptEntriesAll s")
+public class ShrDeptEntriesAll implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
-	@EmbeddedId
-	private FunLookupValueKey id;
+
+	@Id
+	@SequenceGenerator(name="SHR_DEPT_ENTRIES_ALL_GENERATOR", sequenceName="SHR_DEPT_ENTRIES_ALL_S1")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SHR_DEPT_ENTRIES_ALL_GENERATOR")
+	@Column(name="DEPT_ENTRIES_ID")
+	private BigDecimal deptEntriesId;
 	
 	@Column(name="ATTRIBUTE_CATEGORY")
 	private String attributeCategory;
@@ -61,6 +55,9 @@ public class FndLookupValue implements Serializable {
 
 	private String attribute9;
 
+	@Column(name="COMPANY_ID")
+	private BigDecimal companyId;
+
 	@Column(name="CREATED_BY")
 	private BigDecimal createdBy;
 
@@ -68,14 +65,16 @@ public class FndLookupValue implements Serializable {
 	@Column(name="CREATION_DATE")
 	private Date creationDate;
 
-	private String description;
-
-	@Column(name="ENABLED_FLAG")
-	private String enabledFlag;
+	@Column(name="DEPARTMENT_ID")
+	private BigDecimal departmentId;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="END_DATE_ACTIVE")
-	private Date endDateActive;
+	@Column(name="DISABLE_DATE")
+	private Date disableDate;
+
+	@Temporal(TemporalType.DATE)
+	@Column(name="ENABLE_DATE")
+	private Date enableDate;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name="LAST_UPDATE_DATE")
@@ -87,30 +86,12 @@ public class FndLookupValue implements Serializable {
 	@Column(name="LAST_UPDATED_BY")
 	private BigDecimal lastUpdatedBy;
 
-	@Column(name="LEAF_NODE")
-	private String leafNode;
+	@Column(name="PARENT_DEPARTMENT_ID")
+	private BigDecimal parentDepartmentId;
 
-	private String meaning;
+	private BigDecimal seq;
 
-	@Column(name="SECURITY_GROUP_ID")
-	private BigDecimal securityGroupId;
-
-	@Column(name="SOURCE_LANG")
-	private String sourceLang;
-
-	@Temporal(TemporalType.DATE)
-	@Column(name="START_DATE_ACTIVE")
-	private Date startDateActive;
-
-	private String tag;
-
-	@Column(name="TERRITORY_CODE")
-	private String territoryCode;
-
-	@Column(name="VIEW_APPLICATION_ID")
-	private BigDecimal viewApplicationId;
-
-	public FndLookupValue() {
+	public ShrDeptEntriesAll() {
 	}
 
 	public String getAttributeCategory() {
@@ -241,6 +222,14 @@ public class FndLookupValue implements Serializable {
 		this.attribute9 = attribute9;
 	}
 
+	public BigDecimal getCompanyId() {
+		return this.companyId;
+	}
+
+	public void setCompanyId(BigDecimal companyId) {
+		this.companyId = companyId;
+	}
+
 	public BigDecimal getCreatedBy() {
 		return this.createdBy;
 	}
@@ -257,28 +246,36 @@ public class FndLookupValue implements Serializable {
 		this.creationDate = creationDate;
 	}
 
-	public String getDescription() {
-		return this.description;
+	public BigDecimal getDepartmentId() {
+		return this.departmentId;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setDepartmentId(BigDecimal departmentId) {
+		this.departmentId = departmentId;
 	}
 
-	public String getEnabledFlag() {
-		return this.enabledFlag;
+	public BigDecimal getDeptEntriesId() {
+		return this.deptEntriesId;
 	}
 
-	public void setEnabledFlag(String enabledFlag) {
-		this.enabledFlag = enabledFlag;
+	public void setDeptEntriesId(BigDecimal deptEntriesId) {
+		this.deptEntriesId = deptEntriesId;
 	}
 
-	public Date getEndDateActive() {
-		return this.endDateActive;
+	public Date getDisableDate() {
+		return this.disableDate;
 	}
 
-	public void setEndDateActive(Date endDateActive) {
-		this.endDateActive = endDateActive;
+	public void setDisableDate(Date disableDate) {
+		this.disableDate = disableDate;
+	}
+
+	public Date getEnableDate() {
+		return this.enableDate;
+	}
+
+	public void setEnableDate(Date enableDate) {
+		this.enableDate = enableDate;
 	}
 
 	public Date getLastUpdateDate() {
@@ -305,76 +302,20 @@ public class FndLookupValue implements Serializable {
 		this.lastUpdatedBy = lastUpdatedBy;
 	}
 
-	public String getLeafNode() {
-		return this.leafNode;
+	public BigDecimal getParentDepartmentId() {
+		return this.parentDepartmentId;
 	}
 
-	public void setLeafNode(String leafNode) {
-		this.leafNode = leafNode;
+	public void setParentDepartmentId(BigDecimal parentDepartmentId) {
+		this.parentDepartmentId = parentDepartmentId;
 	}
 
-	public String getMeaning() {
-		return this.meaning;
+	public BigDecimal getSeq() {
+		return this.seq;
 	}
 
-	public void setMeaning(String meaning) {
-		this.meaning = meaning;
-	}
-
-	public BigDecimal getSecurityGroupId() {
-		return this.securityGroupId;
-	}
-
-	public void setSecurityGroupId(BigDecimal securityGroupId) {
-		this.securityGroupId = securityGroupId;
-	}
-
-	public String getSourceLang() {
-		return this.sourceLang;
-	}
-
-	public void setSourceLang(String sourceLang) {
-		this.sourceLang = sourceLang;
-	}
-
-	public Date getStartDateActive() {
-		return this.startDateActive;
-	}
-
-	public void setStartDateActive(Date startDateActive) {
-		this.startDateActive = startDateActive;
-	}
-
-	public String getTag() {
-		return this.tag;
-	}
-
-	public void setTag(String tag) {
-		this.tag = tag;
-	}
-
-	public String getTerritoryCode() {
-		return this.territoryCode;
-	}
-
-	public void setTerritoryCode(String territoryCode) {
-		this.territoryCode = territoryCode;
-	}
-
-	public BigDecimal getViewApplicationId() {
-		return this.viewApplicationId;
-	}
-
-	public void setViewApplicationId(BigDecimal viewApplicationId) {
-		this.viewApplicationId = viewApplicationId;
-	}
-
-	public FunLookupValueKey getId() {
-		return id;
-	}
-
-	public void setId(FunLookupValueKey id) {
-		this.id = id;
+	public void setSeq(BigDecimal seq) {
+		this.seq = seq;
 	}
 
 }

@@ -1,0 +1,13 @@
+----------------------------------------------------------------
+Mon Jun 12 10:40:28 CST 2017：
+ 正在使用類別載入器 sun.misc.Launcher$AppClassLoader@787d6a 啟動資料庫
+目錄 D:\Qtmp\eclipse\workspace_neon3\Test03\Test03-ejb\target\databases\derby 中的 Derby 版本 The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446) 實例 a816c00e-015c-9a2c-85ff-000001908208
+載入自 file:/C:/Users/Xinquan.Chen/.m2/repository/org/glassfish/main/extras/glassfish-embedded-all/4.1.1/glassfish-embedded-all-4.1.1.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.7.0_80-b15
+user.dir=D:\Qtmp\eclipse\workspace_neon3\Test03\Test03-ejb
+os.name=Windows 7
+os.arch=x86
+os.version=6.1
+derby.system.home=null
+已啟動「資料庫類別載入器」- derby.database.classpath= ''

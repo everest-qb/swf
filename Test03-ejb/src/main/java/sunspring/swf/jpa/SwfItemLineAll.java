@@ -1,33 +1,28 @@
-package sunspring.tests.jpa;
+package sunspring.swf.jpa;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlAccessType;
 
 import java.math.BigDecimal;
 import java.util.Date;
 
 
 /**
- * The persistent class for the FND_LOOKUP_VALUES database table.
+ * The persistent class for the SWF_ITEM_LINE_ALL database table.
  * 
  */
 @Entity
-@Table(name="FND_LOOKUP_VALUES",schema="APPLSYS")
-@NamedQuery(name="FndLookupValue.findAll", query="SELECT f FROM FndLookupValue f")
+@Table(name="SWF_ITEM_LINE_ALL",schema="SWF")
+@NamedQuery(name="SwfItemLineAll.findAll", query="SELECT s FROM SwfItemLineAll s")
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class FndLookupValue implements Serializable {
-	
-	@XmlTransient
+public class SwfItemLineAll implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
-	@EmbeddedId
-	private FunLookupValueKey id;
-	
+
 	@Column(name="ATTRIBUTE_CATEGORY")
 	private String attributeCategory;
 
@@ -68,14 +63,16 @@ public class FndLookupValue implements Serializable {
 	@Column(name="CREATION_DATE")
 	private Date creationDate;
 
-	private String description;
+	/*@Transient
+	private BigDecimal hdrId;*/
+	
+	@XmlTransient
+	@ManyToOne
+	@JoinColumn(name = "HDR_ID", table = "SWF_ITEM_LINE_ALL")
+	private SwfItemHdrAll itemHdr;
 
-	@Column(name="ENABLED_FLAG")
-	private String enabledFlag;
-
-	@Temporal(TemporalType.DATE)
-	@Column(name="END_DATE_ACTIVE")
-	private Date endDateActive;
+	@Column(name="ITEM_COMP_ID")
+	private BigDecimal itemCompId;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name="LAST_UPDATE_DATE")
@@ -87,30 +84,13 @@ public class FndLookupValue implements Serializable {
 	@Column(name="LAST_UPDATED_BY")
 	private BigDecimal lastUpdatedBy;
 
-	@Column(name="LEAF_NODE")
-	private String leafNode;
+	@Id
+	@SequenceGenerator(name="SWF_ITEM_LINE_ALL_LINEID_GENERATOR", sequenceName="SWF_ITEM_LINE_ALL_S1")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SWF_ITEM_LINE_ALL_LINEID_GENERATOR")
+	@Column(name="LINE_ID")
+	private BigDecimal lineId;
 
-	private String meaning;
-
-	@Column(name="SECURITY_GROUP_ID")
-	private BigDecimal securityGroupId;
-
-	@Column(name="SOURCE_LANG")
-	private String sourceLang;
-
-	@Temporal(TemporalType.DATE)
-	@Column(name="START_DATE_ACTIVE")
-	private Date startDateActive;
-
-	private String tag;
-
-	@Column(name="TERRITORY_CODE")
-	private String territoryCode;
-
-	@Column(name="VIEW_APPLICATION_ID")
-	private BigDecimal viewApplicationId;
-
-	public FndLookupValue() {
+	public SwfItemLineAll() {
 	}
 
 	public String getAttributeCategory() {
@@ -257,28 +237,20 @@ public class FndLookupValue implements Serializable {
 		this.creationDate = creationDate;
 	}
 
-	public String getDescription() {
-		return this.description;
+	/*public BigDecimal getHdrId() {
+		return this.hdrId;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setHdrId(BigDecimal hdrId) {
+		this.hdrId = hdrId;
+	}*/
+
+	public BigDecimal getItemCompId() {
+		return this.itemCompId;
 	}
 
-	public String getEnabledFlag() {
-		return this.enabledFlag;
-	}
-
-	public void setEnabledFlag(String enabledFlag) {
-		this.enabledFlag = enabledFlag;
-	}
-
-	public Date getEndDateActive() {
-		return this.endDateActive;
-	}
-
-	public void setEndDateActive(Date endDateActive) {
-		this.endDateActive = endDateActive;
+	public void setItemCompId(BigDecimal itemCompId) {
+		this.itemCompId = itemCompId;
 	}
 
 	public Date getLastUpdateDate() {
@@ -305,76 +277,20 @@ public class FndLookupValue implements Serializable {
 		this.lastUpdatedBy = lastUpdatedBy;
 	}
 
-	public String getLeafNode() {
-		return this.leafNode;
+	public BigDecimal getLineId() {
+		return this.lineId;
 	}
 
-	public void setLeafNode(String leafNode) {
-		this.leafNode = leafNode;
+	public void setLineId(BigDecimal lineId) {
+		this.lineId = lineId;
 	}
 
-	public String getMeaning() {
-		return this.meaning;
+	public SwfItemHdrAll getItemHdr() {
+		return itemHdr;
 	}
 
-	public void setMeaning(String meaning) {
-		this.meaning = meaning;
-	}
-
-	public BigDecimal getSecurityGroupId() {
-		return this.securityGroupId;
-	}
-
-	public void setSecurityGroupId(BigDecimal securityGroupId) {
-		this.securityGroupId = securityGroupId;
-	}
-
-	public String getSourceLang() {
-		return this.sourceLang;
-	}
-
-	public void setSourceLang(String sourceLang) {
-		this.sourceLang = sourceLang;
-	}
-
-	public Date getStartDateActive() {
-		return this.startDateActive;
-	}
-
-	public void setStartDateActive(Date startDateActive) {
-		this.startDateActive = startDateActive;
-	}
-
-	public String getTag() {
-		return this.tag;
-	}
-
-	public void setTag(String tag) {
-		this.tag = tag;
-	}
-
-	public String getTerritoryCode() {
-		return this.territoryCode;
-	}
-
-	public void setTerritoryCode(String territoryCode) {
-		this.territoryCode = territoryCode;
-	}
-
-	public BigDecimal getViewApplicationId() {
-		return this.viewApplicationId;
-	}
-
-	public void setViewApplicationId(BigDecimal viewApplicationId) {
-		this.viewApplicationId = viewApplicationId;
-	}
-
-	public FunLookupValueKey getId() {
-		return id;
-	}
-
-	public void setId(FunLookupValueKey id) {
-		this.id = id;
+	public void setItemHdr(SwfItemHdrAll itemHdr) {
+		this.itemHdr = itemHdr;
 	}
 
 }

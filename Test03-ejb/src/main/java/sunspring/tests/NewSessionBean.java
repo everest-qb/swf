@@ -15,7 +15,7 @@ import javax.persistence.PersistenceContext;
 
 import sunspring.tests.annotation.LogTrace;
 import sunspring.tests.jpa.FndLookupValue;
-import sunspring.tests.jpa.FunLookupValueKey;
+import sunspring.tests.jpa.ShrEmployeesAll;
 
 /**
  *
@@ -52,6 +52,12 @@ public class NewSessionBean {
 		
 		
 		return returnValue;
+	}
+	
+	public ShrEmployeesAll findEmplByNumber(String emplNumber) throws Exception{
+		return em.createQuery("SELECT e FROM ShrEmployeesAll e JOIN FETCH e.summary WHERE e.employeeNumber=:EmplNU", ShrEmployeesAll.class)
+				.setParameter("EmplNU", emplNumber)
+				.getSingleResult();
 	}
 	
 }

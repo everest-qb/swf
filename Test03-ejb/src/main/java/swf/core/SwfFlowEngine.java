@@ -40,7 +40,7 @@ public class SwfFlowEngine /*implements ServletContextListener*/ {
     private static final String SWF_STATION_TXN_ALL = "SWF_STATION_TXN_ALL";
     private static final String SWF_STATION_RULE_ALL = "SWF_STATION_RULE_ALL";
     private static final String SWF_EMPS_ALL = "SWF_EMPS_ALL";
-    private static final String SWF_DEPTS_ALL = "SWF_DEPTS_ALL";
+    //private static final String SWF_DEPTS_ALL = "SWF_DEPTS_ALL"; 
     private static final String SWF_DEPT_ALL = "SWF_DEPT_ALL";
     private static final String SWF_AUTH_ALL = "SWF_AUTH_ALL";
     private static final String SWF_SPECIAL_STATION_ALL = "SWF_SPECIAL_STATION_ALL";
@@ -215,6 +215,7 @@ public class SwfFlowEngine /*implements ServletContextListener*/ {
 
                                 applRS.last();
                                 //先判斷是否大於0 大於0有多申請人 進入迴圈 等於0 直接去取得填單人去取得填單人的 EMP_ID DEPT_ID DEPT_LEVEL_CODE 儲存 JOB_ID目前暫無 所以設定成null
+                                //do nothing
                                 if (applRS.getRow() > 0) {
                                     applRS.beforeFirst();
                                     //當有多申請人時執行迴圈
@@ -241,7 +242,7 @@ public class SwfFlowEngine /*implements ServletContextListener*/ {
                                             //當多申請人有不同部門時 去取得填單人的 EMP_ID DEPT_ID JOB_LEVEL ORG_ID 儲存, JOB_ID目前暫無 所以設定成null 並跳出迴圈
                                         } else if (!mutiApplDeptId.equals(applRS.getString("DEPT_ID"))) {
                                             System.out.println("-----多申請人有不同部門以填單人為主-----");
-                                            applSql = "SELECT sea.EMP_ID, sda.DEPT_ID, sda.DEPT_LEVEL_CODE ,soda.position_code,sda.ORG_ID FROM " + SWF_EMPS_ALL + " sea, " + SWF_DEPTS_ALL + " sda"
+                                            applSql = "SELECT sea.EMP_ID, sda.DEPT_ID, sda.DEPT_LEVEL_CODE ,soda.position_code,sda.ORG_ID FROM " + SWF_EMPS_ALL + " sea, " + SWF_DEPT_ALL + " sda"
                                                     + " WHERE　1=1 AND sea.EMP_ID = " + hdrRS.getString("PREPARED_BY") + "AND sea.ORG_DEPT_ID = sda.DEPT_ID ";
                                             System.out.println(applSql);
                                             applRS = applStmt.executeQuery(applSql);

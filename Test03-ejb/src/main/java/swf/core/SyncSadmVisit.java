@@ -353,7 +353,7 @@ public class SyncSadmVisit extends Thread implements ServletContextListener {
                 + "',p_request_level=>'" + requestLevel + "',p_service_item_id=>" + serviceItemId + ",p_applied_date=>to_date('" + creationDate + "','yyyy/mm/dd hh24:mi'),p_request_expire_type=>'N',"
                 + "p_request_expire_date=>to_date('" + endDate + "','yyyy/mm/dd hh24:mi'),p_request_enable_date=>"
                 + "to_date('" + startDate + "','yyyy/mm/dd hh24:mi'),p_process_status=>'10',p_service_activity_code=>" + status + ",P_ATTRIBUTE2=>'" + AempId + "')";
-        System.out.println(sql);
+        System.out.println(sql);// return pk(HDR_ID)
         CallableStatement cStmt = null;
         String message = "";
         try {

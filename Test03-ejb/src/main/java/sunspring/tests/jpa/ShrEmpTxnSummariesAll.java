@@ -2,6 +2,11 @@ package sunspring.tests.jpa;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -13,7 +18,10 @@ import java.util.Date;
 @Entity
 @Table(name="SHR_EMP_TXN_SUMMARIES_ALL",schema="SHR")
 @NamedQuery(name="ShrEmpTxnSummariesAll.findAll", query="SELECT s FROM ShrEmpTxnSummariesAll s")
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class ShrEmpTxnSummariesAll implements Serializable {
+	@XmlTransient
 	private static final long serialVersionUID = 1L;
 
 	@Id
